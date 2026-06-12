@@ -1,0 +1,1 @@
+export HF_MODEL_NAME="distilbert-base-uncased"
