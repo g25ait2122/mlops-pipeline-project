@@ -1,4 +1,5 @@
 import os
+import sys
 from transformers import pipeline, AutoTokenizer
 
 
@@ -23,6 +24,7 @@ def main():
         print(f"Prediction: {result}")
     except Exception as e:
         print(f"Error during inference: {e}")
+        sys.exit(1)
 
 
 if __name__ == "__main__":
