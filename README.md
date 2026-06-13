@@ -1,17 +1,17 @@
 # MLOps Emotion Classifier Pipeline
 
-An end-to-end MLOps pipeline that fine-tunes DistilBERT for emotion classification. Built for the PGD AI Program at IIT Jodhpur, this project demonstrates automated training, testing, and deployment workflows using GitHub Actions, Docker, and Weights & Biases.
+An end-to-end MLOps pipeline demonstrating deployment and inference for emotion classification using a fine-tuned DistilBERT model. Built for the PGD AI Program at IIT Jodhpur, this project shows automated testing, deployment workflows, and CI/CD practices with GitHub Actions and Docker.
 
 ## What Does This Thing Do?
 
-Simple - it takes text and tells you what emotion it expresses. Think "I love machine learning!" → joy, or "This bug won't fix itself" → anger. We fine-tuned DistilBERT on the emotion dataset to classify text into 6 categories:
+Simple - it takes text and tells you what emotion it expresses. Think "I love machine learning!" → joy, or "This bug won't fix itself" → anger. We're using a fine-tuned DistilBERT model that classifies text into 6 categories:
 
-- Sadness
-- Joy  
-- Love
-- Anger
-- Fear
-- Surprise
+- sadness
+- joy  
+- love
+- anger
+- fear
+- surprise
 
 ## Project Structure
 
@@ -25,53 +25,11 @@ mlops-pipeline-project/
 │   └── inference.py        # Model inference script
 ├── Dockerfile              # Container setup for deployment
 ├── requirements.txt        # Python dependencies
-├── id2label.json          # Label mapping (0→sadness, etc.)
-└── README.md              # You're reading it
+├── id2label.json           # Label mapping (0→sadness, etc.)
+└── README.md               # You're reading it
 ```
 
 ## Pipeline Architecture
-
-### Training Pipeline (Kaggle Notebook)
-```
-┌─────────────────────────────────────────────────────────────┐
-│                   Kaggle Notebook (GPU)                     │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-                    ┌─────────────────┐
-                    │  Load Dataset   │
-                    │ dair-ai/emotion │
-                    │  (2000 samples) │
-                    └────────┬────────┘
-                             │
-                             ▼
-                    ┌─────────────────┐
-                    │  Preprocessing  │
-                    │  - Drop nulls   │
-                    │  - Lowercase    │
-                    │  - Tokenize     │
-                    └────────┬────────┘
-                             │
-                             ▼
-                    ┌─────────────────┐
-                    │   Fine-tune     │
-                    │   DistilBERT    │
-                    │   2 epochs      │
-                    └────────┬────────┘
-                             │
-                             ▼
-                    ┌─────────────────┐
-                    │  W&B Tracking   │
-                    │  - Loss curves  │
-                    │  - Metrics      │
-                    └────────┬────────┘
-                             │
-                             ▼
-            ┌──────────────────────────────────┐
-            │          Push to HF Hub          │
-            │ VaibhavG25AIT/emotion-classifier │
-            └──────────────────────────────────┘
-```
 
 ### CI/CD Pipeline (GitHub Actions)
 ```
@@ -242,34 +200,36 @@ To trigger manually:
 3. Click **Run workflow**
 4. Enter your text and click **Run**
 
+### Inference Workflow in Action
+
+The workflow now appears in GitHub Actions and can be triggered manually:
+
+![Inference Workflow](images/inference.png)
+
+Example inference run showing successful emotion classification:
+
+![Inference Run Output](images/output.png)
+
+The workflow successfully:
+- Loads the model from HuggingFace Hub
+- Processes the input text
+- Returns emotion predictions with confidence scores
+
 ## Model Details
 
-### Training Setup
-- **Base Model:** distilbert-base-uncased
-- **Dataset:** dair-ai/emotion (2000 samples for speed)
-- **Epochs:** 2
-- **Learning Rate:** 5e-5
-- **Batch Size:** 16
-- **Hardware:** Kaggle T4 GPU (< 3 hours)
+### Model Information
+- **Base Model:** distilbert-base-uncased (fine-tuned by model creator)
+- **Training Data:** dair-ai/emotion dataset
+- **Performance:** ~82% accuracy, ~0.81 F1 score
+- **Model Source:** HuggingFace Hub
 
-### Performance
-- **Accuracy:** ~82%
-- **F1 Score:** ~0.81
+### Data Preparation
 
-Not production-ready, but good enough to show the pipeline works!
-
-### Training Procedure
-
-We used `data_prep.py` to:
-1. Load 5000 samples from emotion dataset
+The `data_prep.py` script demonstrates how to:
+1. Load samples from the emotion dataset
 2. Drop null values
-3. Lowercase all text
+3. Lowercase text for preprocessing
 4. Create label mappings (saved to `id2label.json`)
-
-Fine-tuning was done in a Kaggle notebook with W&B tracking for:
-- Training/validation loss
-- Accuracy metrics
-- Model checkpoints
 
 ## Known Issues & Fixes
 
@@ -299,14 +259,14 @@ flake8 src/ --max-line-length=120
 ## Why This Project Exists
 
 This was built for an MLOps assignment to demonstrate:
-- ✅ Model training with experiment tracking (W&B)
-- ✅ Version control with Git
-- ✅ CI/CD with GitHub Actions
-- ✅ Containerization with Docker
-- ✅ Model deployment to HuggingFace Hub
-- ✅ Automated testing and linting
+- Model deployment and inference workflows
+- Version control with Git
+- CI/CD with GitHub Actions
+- Containerization with Docker
+- Integration with HuggingFace models
+- Automated testing and linting
 
-It's not meant for production use - the model was trained on a tiny dataset to fit within Kaggle's free GPU limits. But it shows how a real ML pipeline should work.
+We're focusing on the deployment and operations side of MLOps - showing how to take a model and build production-ready infrastructure around it.
 
 ## License
 
