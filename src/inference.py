@@ -11,7 +11,13 @@ def main():
     print(f"Loading model: {model_name}")
     try:
         tokenizer = AutoTokenizer.from_pretrained(model_name, token=hf_token)
-        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer, token=hf_token)
+        tokenizer.model_input_names = ["input_ids", "attention_mask"]
+        classifier = pipeline(
+            "text-classification",
+            model=model_name,
+            tokenizer=tokenizer,
+            token=hf_token
+        )
         result = classifier(text)
         print(f"Input: {text}")
         print(f"Prediction: {result}")
