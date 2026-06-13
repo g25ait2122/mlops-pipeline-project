@@ -5,6 +5,7 @@ on:
       input_text:
         description: 'Text to classify'
         required: true
+        type: string
 jobs:
   infer:
     runs-on: ubuntu-latest
