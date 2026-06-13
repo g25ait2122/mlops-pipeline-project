@@ -1,10 +1,10 @@
 # MLOps Emotion Classifier Pipeline
 
-An end-to-end MLOps pipeline demonstrating deployment and inference for emotion classification using a fine-tuned DistilBERT model. Built for the PGD AI Program at IIT Jodhpur, this project shows automated testing, deployment workflows, and CI/CD practices with GitHub Actions and Docker.
+An end-to-end MLOps pipeline that fine-tunes DistilBERT for emotion classification with W&B experiment tracking. Built for the PGD AI Program at IIT Jodhpur, this project demonstrates model training, deployment workflows, and CI/CD practices with GitHub Actions and Docker.
 
 ## What Does This Thing Do?
 
-Simple - it takes text and tells you what emotion it expresses. Think "I love machine learning!" → joy, or "This bug won't fix itself" → anger. We're using a fine-tuned DistilBERT model that classifies text into 6 categories:
+Simple - it takes text and tells you what emotion it expresses. Think "I love machine learning!" → joy, or "This bug won't fix itself" → anger. We fine-tuned DistilBERT to classify text into 6 categories:
 
 - sadness
 - joy  
@@ -217,19 +217,33 @@ The workflow successfully:
 
 ## Model Details
 
-### Model Information
-- **Base Model:** distilbert-base-uncased (fine-tuned by model creator)
-- **Training Data:** dair-ai/emotion dataset
-- **Performance:** ~82% accuracy, ~0.81 F1 score
-- **Model Source:** HuggingFace Hub
+### Training Configuration
+- **Base Model:** distilbert-base-uncased
+- **Dataset:** dair-ai/emotion (2000 samples)
+- **Epochs:** 2 per experiment
+- **Learning Rates Tested:** 3e-5, 5e-5 (multiple experiments)
+- **Batch Size:** 16 per device
+- **Experiment Tracking:** Weights & Biases ([View experiments](https://wandb.ai/g25ait2122-iit-jodhpur/mlops-assignment3))
+- **Best Model Performance:** ~82% accuracy, ~0.81 F1 score
 
-### Data Preparation
+### Training Process
 
-The `data_prep.py` script demonstrates how to:
-1. Load samples from the emotion dataset
-2. Drop null values
-3. Lowercase text for preprocessing
-4. Create label mappings (saved to `id2label.json`)
+1. **Data Preparation** (`data_prep.py`):
+   - Load samples from emotion dataset
+   - Drop null values
+   - Lowercase text preprocessing
+   - Create label mappings (saved to `id2label.json`)
+
+2. **Model Fine-tuning** ([Kaggle Notebook](https://www.kaggle.com/code/vaibhavg25ait2122/mlops-pipeline-project)):
+   - Fine-tuned DistilBERT using HuggingFace Transformers
+   - Ran multiple experiments with different learning rates (3e-5, 5e-5)
+   - Tracked all experiments with W&B for loss curves and metrics comparison
+   - Trained for 2 epochs per experiment
+   - Pushed best performing model to HuggingFace Hub
+
+3. **Deployment**:
+   - Model hosted on [HuggingFace Hub](https://huggingface.co/VaibhavG25AIT2122/mlops-emotion-classifier)
+   - Accessible via: `VaibhavG25AIT2122/mlops-emotion-classifier`
 
 ## Known Issues & Fixes
 
@@ -259,14 +273,16 @@ flake8 src/ --max-line-length=120
 ## Why This Project Exists
 
 This was built for an MLOps assignment to demonstrate:
+- Model fine-tuning with multiple experiments
+- Experiment tracking and comparison using Weights & Biases
 - Model deployment and inference workflows
 - Version control with Git
 - CI/CD with GitHub Actions
 - Containerization with Docker
-- Integration with HuggingFace models
+- Model hosting on HuggingFace Hub
 - Automated testing and linting
 
-We're focusing on the deployment and operations side of MLOps - showing how to take a model and build production-ready infrastructure around it.
+Complete MLOps pipeline from training to deployment, showing how to fine-tune a model with systematic experimentation, track metrics across runs, and build production ready infrastructure around it.
 
 ## License
 
@@ -277,7 +293,13 @@ MIT License
 **Group 15**  
 PGD AI Program, IIT Jodhpur
 
+## Project Links
+
+- **GitHub Repository:** [https://github.com/g25ait2122/mlops-pipeline-project](https://github.com/g25ait2122/mlops-pipeline-project)
+- **Kaggle Notebook:** [https://www.kaggle.com/code/vaibhavg25ait2122/mlops-pipeline-project](https://www.kaggle.com/code/vaibhavg25ait2122/mlops-pipeline-project)
+- **HuggingFace Model:** [https://huggingface.co/VaibhavG25AIT2122/mlops-emotion-classifier](https://huggingface.co/VaibhavG25AIT2122/mlops-emotion-classifier)
+- **W&B Experiments:** [https://wandb.ai/g25ait2122-iit-jodhpur/mlops-assignment3](https://wandb.ai/g25ait2122-iit-jodhpur/mlops-assignment3?nw=nwuserg25ait2122)
+
 ---
 
-**Model Card:** [VaibhavG25AIT2122/mlops-emotion-classifier](https://huggingface.co/VaibhavG25AIT2122/mlops-emotion-classifier)  
-**Issues?** Feel free to create an issue
+**Issues?** Feel free to create an issue on GitHub
