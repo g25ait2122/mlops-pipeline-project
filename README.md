@@ -318,13 +318,12 @@ MIT License
 **Group 15**  
 PGD AI Program, IIT Jodhpur
 
+```
 Vaibhav Dwivedi
-
 Hemant Kumar
-
 Mughendar R
-
 Kaustubh Karvekar
+```
 
 ## Project Links
 
@@ -332,6 +331,7 @@ Kaustubh Karvekar
 - **Kaggle Notebook:** [https://www.kaggle.com/code/vaibhavg25ait2122/mlops-pipeline-project](https://www.kaggle.com/code/vaibhavg25ait2122/mlops-pipeline-project)
 - **HuggingFace Model:** [https://huggingface.co/VaibhavG25AIT2122/mlops-emotion-classifier](https://huggingface.co/VaibhavG25AIT2122/mlops-emotion-classifier)
 - **W&B Experiments:** [https://wandb.ai/g25ait2122-iit-jodhpur/mlops-assignment3](https://wandb.ai/g25ait2122-iit-jodhpur/mlops-assignment3?nw=nwuserg25ait2122)
+- **Docker Hub:** [https://hub.docker.com/r/g25ait2122/mlops-a3-inference](https://hub.docker.com/r/g25ait2122/mlops-a3-inference)
 
 ---
 
