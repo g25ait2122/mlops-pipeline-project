@@ -184,6 +184,31 @@ docker run -e HF_TOKEN="your_token" \
            emotion-classifier
 ```
 
+### Pre-built Docker Image (Docker Hub)
+
+A ready-to-use Docker image is available on Docker Hub for quick deployment:
+
+**Image:** `g25ait2122/mlops-a3-inference:latest`  
+**Docker Hub:** [https://hub.docker.com/r/g25ait2122/mlops-a3-inference](https://hub.docker.com/r/g25ait2122/mlops-a3-inference)
+
+Pull the image:
+```bash
+docker pull g25ait2122/mlops-a3-inference:latest
+```
+
+Run inference with the pre-built image:
+```bash
+docker run -e HF_TOKEN="your_token" \
+           -e INPUT_TEXT="This is amazing!" \
+           g25ait2122/mlops-a3-inference:latest
+```
+
+This image comes pre-configured with:
+- Python 3.11 runtime
+- All required dependencies
+- Model: `VaibhavG25AIT2122/mlops-emotion-classifier`
+- Optimized for production deployment
+
 ## GitHub Actions Workflows
 
 ### CI Workflow
