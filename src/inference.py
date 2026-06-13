@@ -1,5 +1,5 @@
 import os
-from transformers import pipeline
+from transformers import pipeline, AutoTokenizer
 
 
 def main():
@@ -10,7 +10,8 @@ def main():
 
     print(f"Loading model: {model_name}")
     try:
-        classifier = pipeline("text-classification", model=model_name, token=hf_token)
+        tokenizer = AutoTokenizer.from_pretrained(model_name, token=hf_token)
+        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer, token=hf_token)
         result = classifier(text)
         print(f"Input: {text}")
         print(f"Prediction: {result}")
