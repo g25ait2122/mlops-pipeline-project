@@ -317,6 +317,10 @@ MIT License
 
 **Group 15**  
 PGD AI Program, IIT Jodhpur
+Vaibhav Dwivedi
+Hemant Kumar
+Mughendar R
+Kaustubh Karvekar
 
 ## Project Links
 
