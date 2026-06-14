@@ -1,30 +1,22 @@
 import os
-import sys
-from transformers import pipeline, AutoTokenizer
+from transformers import pipeline
 
 
 def main():
-    # Pick model name from env
-    model_name = os.getenv("HF_MODEL_NAME")
-    text = os.getenv("INPUT_TEXT", "Doing MLOps assignment is a happy feeling!")
-    hf_token = os.getenv("HF_TOKEN")
+    model_name = os.getenv("HF_MODEL_NAME", "VaibhavG25AIT2122/mlops-emotion-classifier")
+    input_text = os.getenv("INPUT_TEXT", "I am very happy today")
 
-    print(f"Loading model: {model_name}")
-    try:
-        tokenizer = AutoTokenizer.from_pretrained(model_name, token=hf_token)
-        tokenizer.model_input_names = ["input_ids", "attention_mask"]
-        classifier = pipeline(
-            "text-classification",
-            model=model_name,
-            tokenizer=tokenizer,
-            token=hf_token
-        )
-        result = classifier(text)
-        print(f"Input: {text}")
-        print(f"Prediction: {result}")
-    except Exception as e:
-        print(f"Error during inference: {e}")
-        sys.exit(1)
+    classifier = pipeline(
+        "text-classification",
+        model=model_name,
+        tokenizer=model_name,
+    )
+
+    prediction = classifier(input_text)
+
+    print("Input text:", input_text)
+    print("Model:", model_name)
+    print("Prediction:", prediction)
 
 
 if __name__ == "__main__":

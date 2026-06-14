@@ -1,5 +1,3 @@
 transformers
 torch
-wandb
 huggingface_hub
-flake8
