@@ -4,7 +4,7 @@ from datasets import load_dataset
 
 def main():
     # Loading dataset
-    dataset = load_dataset("dair-ai/emotion", split="train[:5000]")
+    dataset = load_dataset("dair-ai/emotion", split="train[:2000]")
 
     # Cleanup, droping nulls and lowercase text
     dataset = dataset.filter(lambda x: x['text'] is not None)
