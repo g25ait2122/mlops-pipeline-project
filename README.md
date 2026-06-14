@@ -244,7 +244,7 @@ The workflow successfully:
 
 ### Training Configuration
 - **Base Model:** distilbert-base-uncased
-- **Dataset:** dair-ai/emotion (5000 samples)
+- **Dataset:** dair-ai/emotion (2000 samples)
 - **Epochs:** 2 per experiment
 - **Learning Rates Tested:** 3e-5, 5e-5 (multiple experiments)
 - **Batch Size:** 16 per device
